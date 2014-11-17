@@ -137,13 +137,15 @@ define clean-module-folder
 endef
 
 ifeq ($(TARGET_ARCH),arm)
-    ifneq ($(USE_CCACHE),)
-      ccache := $(ANDROID_BUILD_TOP)/prebuilts/misc/$(HOST_PREBUILT_TAG)/ccache/ccache
-      # Check that the executable is here.
-      ccache := $(strip $(wildcard $(ccache)))
-    endif
-    ARM_CROSS_COMPILE:=CROSS_COMPILE="$(ccache) $(KERNEL_TOOLCHAIN)/$(KERNEL_TOOLCHAIN_PREFIX)"
-    ccache = 
+ifneq ($(TARGET_KERNEL_CUSTOM_TOOLCHAIN),)
+  ifeq ($(HOST_OS),darwin)
+    ARM_CROSS_COMPILE:=CROSS_COMPILE="$(ANDROID_BUILD_TOP)/prebuilts/gcc/darwin-x86/arm/arm-eabi-$(TARGET_KERNEL_CUSTOM_TOOLCHAIN)/bin/arm-eabi-"
+  else
+    ARM_CROSS_COMPILE:=CROSS_COMPILE="$(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-eabi-$(TARGET_KERNEL_CUSTOM_TOOLCHAIN)/bin/arm-eabi-"
+  endif
+else
+  ARM_CROSS_COMPILE:=CROSS_COMPILE="$(ARM_EABI_TOOLCHAIN)/arm-eabi-"
+endif
 endif
 
 ifeq ($(HOST_OS),darwin)
