@@ -149,6 +149,10 @@ class EdifyGenerator(object):
   def RunBackup(self, command):
     self.script.append(('run_program("/tmp/install/bin/backuptool.sh", "%s");' % command))
 
+  def FlashSuperSU(self):
+    self.script.append('run_program("/sbin/busybox", "unzip", "/tmp/install/supersu/supersu.zip", "META-INF/com/google/android/*", "-d", "/tmp/install/supersu");')
+    self.script.append('run_program("/sbin/busybox", "sh", "/tmp/install/supersu/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/install/supersu/supersu.zip");')
+
   def ValidateSignatures(self, command):
     # Exit code 124 == abort. run_program returns raw, so left-shift 8bit
     self.script.append('run_program("/tmp/install/bin/otasigcheck.sh") != "31744" || abort("Can\'t install this package on top of incompatible data. Please try another package or run a factory reset");')
