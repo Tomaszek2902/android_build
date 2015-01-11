@@ -33,7 +33,7 @@ endif # $(HOST_TOOLCHAIN_PREFIX)gcc exists
 
 # gcc location for clang; to be updated when clang is updated
 ifeq ($(USE_HOST_4_8),yes)
-HOST_TOOLCHAIN_FOR_CLANG := prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.15-4.8/
+HOST_TOOLCHAIN_FOR_CLANG := prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.11-4.8/
 else
 HOST_TOOLCHAIN_FOR_CLANG := prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.11-4.6/
 endif
