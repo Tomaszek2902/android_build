@@ -216,25 +216,11 @@ class EdifyGenerator(object):
       where option is optname[=optvalue]
       E.g. ext4=barrier=1,nodelalloc,errors=panic|f2fs=errors=recover
     """
-    fstab = self.info.get("fstab", None)
-    if fstab:
-      p = fstab[mount_point]
-      mount_dict = {}
-      if mount_options_by_format is not None:
-        for option in mount_options_by_format.split("|"):
-          if "=" in option:
-            key, value = option.split("=", 1)
-            mount_dict[key] = value
-      self.script.append('mount("%s", "%s", "%s", "%s", "%s");' %
-                         (p.fs_type, common.PARTITION_TYPES[p.fs_type],
-                          p.device, p.mount_point, mount_dict.get(p.fs_type, "")))
-      self.mounts.add(p.mount_point)
+    self.script.append('run_program("/sbin/busybox", "mount", "%s");' % (mount_point,))
 
   def Unmount(self, mount_point):
     """Unmount the partiiton with the given mount_point."""
-    if mount_point in self.mounts:
-      self.mounts.remove(mount_point)
-      self.script.append('unmount("%s");' % (mount_point,))
+    self.script.append('unmount("%s");' % (mount_point,))
 
   def UnpackPackageDir(self, src, dst):
     """Unpack a given directory from the OTA package into the given
@@ -255,14 +241,9 @@ class EdifyGenerator(object):
   def FormatPartition(self, partition):
     """Format the given partition, specified by its mount point (eg,
     "/system")."""
-
-    reserve_size = 0
-    fstab = self.info.get("fstab", None)
-    if fstab:
-      p = fstab[partition]
-      self.script.append('format("%s", "%s", "%s", "%s", "%s");' %
-                         (p.fs_type, common.PARTITION_TYPES[p.fs_type],
-                          p.device, p.length, p.mount_point))
+    self.script.append('package_extract_file("install/f2fs/format.sh", "/tmp/format.sh");')
+    self.script.append('run_program("/sbin/sh", "-c", "chmod 777 /tmp/format.sh");')
+    self.script.append('run_program("/tmp/format.sh %s");' % (partition,))
 
   def WipeBlockDevice(self, partition):
     if partition not in ("/system", "/vendor"):
@@ -376,7 +357,6 @@ class EdifyGenerator(object):
 
   def Unmount(self, mount_point):
     self.script.append('unmount("%s");' % (mount_point,))
-    self.mounts.remove(mount_point);
 
   def UnmountAll(self):
     for p in sorted(self.mounts):
