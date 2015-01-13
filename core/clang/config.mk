@@ -33,7 +33,7 @@ endif
 CLANG_CONFIG_EXTRA_ASFLAGS :=
 CLANG_CONFIG_EXTRA_CFLAGS :=
 ifeq ($(USE_O3_OPTIMIZATIONS),yes)
-CLANG_CONFIG_EXTRA_CPPFLAGS := -O3 -Qunused-arguments -Wno-unknown-warning-option -D__compiler_offsetof=__builtin_offsetof
+CLANG_CONFIG_EXTRA_CPPFLAGS := -O3
 else
 CLANG_CONFIG_EXTRA_CPPFLAGS :=
 endif
@@ -41,7 +41,7 @@ CLANG_CONFIG_EXTRA_LDFLAGS :=
 
 ifeq ($(USE_O3_OPTIMIZATIONS),yes)
 CLANG_CONFIG_EXTRA_CFLAGS += \
-  -O3 -Qunused-arguments -Wno-unknown-warning-option -D__compiler_offsetof=__builtin_offsetof
+  -O3
 else
 CLANG_CONFIG_EXTRA_CFLAGS += \
   -D__compiler_offsetof=__builtin_offsetof

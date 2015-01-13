@@ -112,10 +112,18 @@ endif
 # limitations under the License.
 #
 # Include custom gcc flags.  Seperate them so they can be easily managed.
-ifeq ($(GRAPHITE_OPTS),yes)
+
+# Supported OS's and ARCH's only
+ifeq (linux,$(HOST_OS))
+ifeq (1,$(words $(filter arm arm64,$(TARGET_ARCH))))
+
+# Do not use graphite on host modules or the clang compiler
 ifndef LOCAL_IS_HOST_MODULE
-ifeq ($(LOCAL_CLANG),)
+ifndef LOCAL_CLANG
+ifeq ($(GRAPHITE_OPTS),yes)
 include $(BUILD_SYSTEM)/graphite.mk
+endif
+endif
 endif
 endif
 endif

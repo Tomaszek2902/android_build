@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 # Force disable some modules that are not compatible with graphite flags
 LOCAL_DISABLE_GRAPHITE := \
 	libunwind \
@@ -23,7 +24,7 @@ LOCAL_DISABLE_GRAPHITE := \
 	libstagefright_mp3dec \
 	libart
 
-ifneq (1,$(words $(filter $(LOCAL_DISABLE_GRAPHITE), $(LOCAL_MODULE))))
+ifneq (1,$(words $(filter $(LOCAL_DISABLE_GRAPHITE),$(LOCAL_MODULE))))
 ifdef LOCAL_CONLYFLAGS
 LOCAL_CONLYFLAGS += \
 	-fgraphite \
@@ -55,6 +56,26 @@ LOCAL_CPPFLAGS += \
 	-floop-block
 else
 LOCAL_CPPFLAGS := \
+	-fgraphite \
+	-floop-flatten \
+	-floop-parallelize-all \
+	-ftree-loop-linear \
+	-floop-interchange \
+	-floop-strip-mine \
+	-floop-block
+endif
+
+ifndef LOCAL_LDFLAGS
+LOCAL_LDFLAGS  := \
+	-fgraphite \
+	-floop-flatten \
+	-floop-parallelize-all \
+	-ftree-loop-linear \
+	-floop-interchange \
+	-floop-strip-mine \
+	-floop-block
+else
+LOCAL_LDFLAGS  += \
 	-fgraphite \
 	-floop-flatten \
 	-floop-parallelize-all \
