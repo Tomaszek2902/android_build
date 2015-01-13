@@ -681,6 +681,16 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   script.FlashSuperSU()
 
+  script.Print("Flashing UKM...")
+
+  script.Mount("/data")
+
+  script.AppendExtra("""delete_recursive("/data/UKM");""")
+  script.UnpackPackageDir("install/UKM", "/data/UKM")
+  script.AppendExtra("""run_program("/sbin/sh", "-c", "chmod -R 775 /data/UKM");""")
+
+  script.Unmount("/data")
+
   script.ShowProgress(0.05, 5)
   script.WriteRawImage("/boot", "boot.img")
 
