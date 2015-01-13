@@ -21,8 +21,7 @@ LOCAL_DISABLE_GRAPHITE := \
 	libvpx \
 	libmedia_jni \
 	libstagefright_mp3dec \
-	libart \
-    libart-compiler
+	libart
 
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_GRAPHITE), $(LOCAL_MODULE))))
 ifdef LOCAL_CONLYFLAGS
