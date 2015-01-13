@@ -60,10 +60,7 @@ CLANG_CONFIG_UNKNOWN_CFLAGS := \
   -Wmaybe-uninitialized \
   -Wno-maybe-uninitialized \
   -Wno-error=maybe-uninitialized \
-  -fno-canonical-system-headers \
-  -fmodulo-sched \
-  -fmodulo-sched-allow-regmoves \
-  -mvectorize-with-neon-quad
+  -fno-canonical-system-headers
 
 # Clang flags for all host rules
 CLANG_CONFIG_HOST_EXTRA_ASFLAGS :=
