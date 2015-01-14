@@ -150,9 +150,8 @@ class EdifyGenerator(object):
     self.script.append(('run_program("/tmp/install/bin/backuptool.sh", "%s");' % command))
 
   def FlashSuperSU(self):
-    self.script.append('package_extract_dir("install/supersu", "/tmp/supersu");')
-    self.script.append('run_program("/sbin/busybox", "unzip", "/tmp/supersu/supersu.zip", "META-INF/com/google/android/*", "-d", "/tmp/supersu");')
-    self.script.append('run_program("/sbin/busybox", "sh", "/tmp/supersu/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/supersu/supersu.zip");')
+    self.script.append('run_program("/sbin/busybox", "unzip", "/tmp/install/supersu/supersu.zip", "META-INF/com/google/android/*", "-d", "/tmp/install/supersu");')
+    self.script.append('run_program("/sbin/busybox", "sh", "/tmp/install/supersu/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/install/supersu/supersu.zip");')
 
   def ValidateSignatures(self, command):
     # Exit code 124 == abort. run_program returns raw, so left-shift 8bit
@@ -224,9 +223,7 @@ class EdifyGenerator(object):
   def FormatPartition(self, partition):
     """Format the given partition, specified by its mount point (eg,
     "/system")."""
-    self.script.append('package_extract_file("install/f2fs/format.sh", "/tmp/format.sh");')
-    self.script.append('run_program("/sbin/sh", "-c", "chmod 777 /tmp/format.sh");')
-    self.script.append('run_program("/tmp/format.sh %s");' % (partition,))
+    self.script.append('run_program("/tmp/install/bin/f2fs/format.sh %s");' % (partition,))
 
   def WipeBlockDevice(self, partition):
     if partition not in ("/system", "/vendor"):
