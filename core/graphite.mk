@@ -13,6 +13,15 @@
 # limitations under the License.
 #
 
+GRAPHITE_FLAGS := \
+	-fgraphite \
+	-floop-flatten \
+	-floop-parallelize-all \
+	-ftree-loop-linear \
+	-floop-interchange \
+	-floop-strip-mine \
+	-floop-block
+
 # Force disable some modules that are not compatible with graphite flags
 LOCAL_DISABLE_GRAPHITE := \
 	libunwind \
@@ -26,63 +35,21 @@ LOCAL_DISABLE_GRAPHITE := \
 
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_GRAPHITE),$(LOCAL_MODULE))))
 ifdef LOCAL_CONLYFLAGS
-LOCAL_CONLYFLAGS += \
-	-fgraphite \
-	-floop-flatten \
-	-floop-parallelize-all \
-	-ftree-loop-linear \
-	-floop-interchange \
-	-floop-strip-mine \
-	-floop-block
+LOCAL_CONLYFLAGS += $(GRAPHITE_FLAGS)
 else
-LOCAL_CONLYFLAGS := \
-	-fgraphite \
-	-floop-flatten \
-	-floop-parallelize-all \
-	-ftree-loop-linear \
-	-floop-interchange \
-	-floop-strip-mine \
-	-floop-block
+LOCAL_CONLYFLAGS := $(GRAPHITE_FLAGS)
 endif
 
 ifdef LOCAL_CPPFLAGS
-LOCAL_CPPFLAGS += \
-	-fgraphite \
-	-floop-flatten \
-	-floop-parallelize-all \
-	-ftree-loop-linear \
-	-floop-interchange \
-	-floop-strip-mine \
-	-floop-block
+LOCAL_CPPFLAGS += $(GRAPHITE_FLAGS)
 else
-LOCAL_CPPFLAGS := \
-	-fgraphite \
-	-floop-flatten \
-	-floop-parallelize-all \
-	-ftree-loop-linear \
-	-floop-interchange \
-	-floop-strip-mine \
-	-floop-block
+LOCAL_CPPFLAGS := $(GRAPHITE_FLAGS)
 endif
 
 ifndef LOCAL_LDFLAGS
-LOCAL_LDFLAGS  := \
-	-fgraphite \
-	-floop-flatten \
-	-floop-parallelize-all \
-	-ftree-loop-linear \
-	-floop-interchange \
-	-floop-strip-mine \
-	-floop-block
+LOCAL_LDFLAGS  := $(GRAPHITE_FLAGS)
 else
-LOCAL_LDFLAGS  += \
-	-fgraphite \
-	-floop-flatten \
-	-floop-parallelize-all \
-	-ftree-loop-linear \
-	-floop-interchange \
-	-floop-strip-mine \
-	-floop-block
+LOCAL_LDFLAGS  += $(GRAPHITE_FLAGS)
 endif
 endif
 
