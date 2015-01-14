@@ -66,22 +66,6 @@ $(combo_2nd_arch_prefix)TARGET_READELF := $($(combo_2nd_arch_prefix)TARGET_TOOLS
 $(combo_2nd_arch_prefix)TARGET_STRIP := $($(combo_2nd_arch_prefix)TARGET_TOOLS_PREFIX)strip$(HOST_EXECUTABLE_SUFFIX)
 
 $(combo_2nd_arch_prefix)TARGET_NO_UNDEFINED_LDFLAGS := -Wl,--no-undefined
-
-ifeq ($(USE_O3_OPTIMIZATIONS),yes)
-$(combo_2nd_arch_prefix)TARGET_arm_CFLAGS := \
-	-O3 \
-	-fomit-frame-pointer \
-	-fstrict-aliasing  \
-	-funswitch-loops \
-	-Wno-error=array-bounds
-
-# Modules can choose to compile some source as thumb.
-$(combo_2nd_arch_prefix)TARGET_thumb_CFLAGS := \
-	-mthumb \
-	-Os \
-	-fomit-frame-pointer \
-	-fno-strict-aliasing
-else
 $(combo_2nd_arch_prefix)TARGET_arm_CFLAGS := \
 	-O2 \
 	-fomit-frame-pointer \
@@ -94,7 +78,6 @@ $(combo_2nd_arch_prefix)TARGET_thumb_CFLAGS := \
 	-Os \
 	-fomit-frame-pointer \
 	-fno-strict-aliasing
-endif
 
 # Set FORCE_ARM_DEBUGGING to "true" in your buildspec.mk
 # or in your environment to force a full arm build, even for

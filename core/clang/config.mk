@@ -32,19 +32,10 @@ endif
 # Clang flags for all host or target rules
 CLANG_CONFIG_EXTRA_ASFLAGS :=
 CLANG_CONFIG_EXTRA_CFLAGS :=
-ifeq ($(USE_O3_OPTIMIZATIONS),yes)
-CLANG_CONFIG_EXTRA_CPPFLAGS := -O3 -Wno-error=array-bounds
-else
 CLANG_CONFIG_EXTRA_CPPFLAGS :=
-endif
 CLANG_CONFIG_EXTRA_LDFLAGS :=
-
-ifeq ($(USE_O3_OPTIMIZATIONS),yes)
-CLANG_CONFIG_EXTRA_CFLAGS += -O3 -Wno-error=array-bounds
-else
 CLANG_CONFIG_EXTRA_CFLAGS += \
   -D__compiler_offsetof=__builtin_offsetof
-endif
 # Help catch common 32/64-bit errors.
 CLANG_CONFIG_EXTRA_CFLAGS += \
   -Werror=int-conversion

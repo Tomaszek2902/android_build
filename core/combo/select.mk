@@ -48,17 +48,10 @@ $(combo_var_prefix)HAVE_STRERROR_R_STRRET := 1
 $(combo_var_prefix)HAVE_STRLCPY := 0
 $(combo_var_prefix)HAVE_STRLCAT := 0
 $(combo_var_prefix)HAVE_KERNEL_MODULES := 0
-ifeq ($(USE_O3_OPTIMIZATIONS),yes)
-$(combo_var_prefix)GLOBAL_CFLAGS := -fno-exceptions -Wno-multichar
-$(combo_var_prefix)RELEASE_CFLAGS := -O3 -Wno-error=array-bounds -g -fno-strict-aliasing
-$(combo_var_prefix)GLOBAL_CPPFLAGS :=
-$(combo_var_prefix)GLOBAL_LDFLAGS :=
-else
 $(combo_var_prefix)GLOBAL_CFLAGS := -fno-exceptions -Wno-multichar
 $(combo_var_prefix)RELEASE_CFLAGS := -O2 -g -fno-strict-aliasing
 $(combo_var_prefix)GLOBAL_CPPFLAGS :=
 $(combo_var_prefix)GLOBAL_LDFLAGS :=
-endif
 $(combo_var_prefix)GLOBAL_ARFLAGS := crsPD
 $(combo_var_prefix)GLOBAL_LD_DIRS :=
 

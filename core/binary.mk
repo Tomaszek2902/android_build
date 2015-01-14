@@ -113,6 +113,14 @@ endif
 #
 # Include custom gcc flags.  Seperate them so they can be easily managed.
 
+ifeq ($(STRICT_ALIASING),yes)
+include $(BUILD_SYSTEM)/strict.mk
+endif
+
+ifeq (yes,$(USE_O3_OPTIMIZATIONS))
+include $(BUILD_SYSTEM)/O3.mk
+endif
+
 # Supported OS's and ARCH's only
 ifeq (linux,$(HOST_OS))
 ifeq (1,$(words $(filter arm arm64,$(TARGET_ARCH))))
@@ -126,10 +134,6 @@ endif
 endif
 endif
 endif
-endif
-
-ifeq ($(STRICT_ALIASING),yes)
-include $(BUILD_SYSTEM)/strict.mk
 endif
 
 # The following LOCAL_ variables will be modified in this file.
