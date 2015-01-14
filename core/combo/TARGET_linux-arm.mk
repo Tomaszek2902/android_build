@@ -71,8 +71,9 @@ ifeq ($(USE_O3_OPTIMIZATIONS),yes)
 $(combo_2nd_arch_prefix)TARGET_arm_CFLAGS := \
 	-O3 \
 	-fomit-frame-pointer \
-	-fstrict-aliasing    \
-	-funswitch-loops
+	-fstrict-aliasing  \
+	-funswitch-loops \
+	-Wno-error=array-bounds
 
 # Modules can choose to compile some source as thumb.
 $(combo_2nd_arch_prefix)TARGET_thumb_CFLAGS := \
