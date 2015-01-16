@@ -192,6 +192,16 @@ function setpaths()
             ;;
     esac
 
+    targetgcckernelversion=$(get_build_var TARGET_KERNEL_CUSTOM_TOOLCHAIN)
+    if [ -z "$targetgcckernelversion" ]; then
+        export TARGET_GCC_VERSION_KERNEL="4.8"
+    else
+        export TARGET_GCC_VERSION_KERNEL="$targetgcckernelversion"
+    fi
+    export TARGET_ARCH=$(get_build_var TARGET_ARCH)
+    export GRAPHITE_OPTS=$(get_build_var GRAPHITE_OPTS)
+    export O3_OPTIMIZATIONS=$(get_build_var O3_OPTIMIZATIONS)
+
     export ANDROID_DEV_SCRIPTS=$T/development/scripts:$T/prebuilts/devtools/tools
     export ANDROID_BUILD_PATHS=$(get_build_var ANDROID_BUILD_PATHS):$ANDROID_TOOLCHAIN:$ANDROID_TOOLCHAIN_2ND_ARCH:$ANDROID_KERNEL_TOOLCHAIN_PATH$ANDROID_DEV_SCRIPTS:
 
