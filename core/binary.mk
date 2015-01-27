@@ -115,12 +115,14 @@ endif
 # Include custom gcc flags.  Seperate them so they can be easily managed.
 
 # Do not use graphite on host modules or the clang compiler.
+ifeq ($(GRAPHITE_OPTS),true)
 ifneq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
   ifneq ($(strip $(LOCAL_CLANG)),true)
 
     # If it gets this far enable graphite by default from here on out.
     include $(BUILD_SYSTEM)/graphite.mk
   endif
+endif
 endif
 
 # O3
