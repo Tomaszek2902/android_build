@@ -114,6 +114,11 @@ endif
 
 # Include custom gcc flags.  Seperate them so they can be easily managed.
 
+# O3
+ifeq ($(strip $(O3_OPTIMIZATIONS)),true)
+  include $(BUILD_SYSTEM)/O3.mk
+endif
+
 # Do not use graphite on host modules or the clang compiler.
 ifeq ($(GRAPHITE_OPTS),true)
 ifneq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
@@ -123,11 +128,6 @@ ifneq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
     include $(BUILD_SYSTEM)/graphite.mk
   endif
 endif
-endif
-
-# O3
-ifeq ($(strip $(O3_OPTIMIZATIONS)),true)
-  include $(BUILD_SYSTEM)/O3.mk
 endif
 
 #end SaberMod
