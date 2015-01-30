@@ -36,6 +36,11 @@ LOCAL_DISABLE_GRAPHITE := \
 	libSR_Core \
 	fio
 
+ifeq (4.9-sm,$(TARGET_GCC_VERSION))
+LOCAL_DISABLE_GRAPHITE += \
+	libFraunhoferAAC
+endif
+
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_GRAPHITE),$(LOCAL_MODULE))))
 ifdef LOCAL_CONLYFLAGS
 LOCAL_CONLYFLAGS += $(GRAPHITE_FLAGS)
