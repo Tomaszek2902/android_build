@@ -105,7 +105,7 @@ endif
 ifdef KRAIT_TUNINGS
 $(info   KRAIT_TUNINGS=$(KRAIT_TUNINGS))
 else
-$(info   STRICT_ALIASING=false)
+$(info   KRAIT_TUNINGS=false)
 endif
 $(info   HOST_ARCH=$(HOST_ARCH))
 $(info   HOST_OS=$(HOST_OS))
