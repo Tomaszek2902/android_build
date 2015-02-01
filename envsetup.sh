@@ -198,11 +198,6 @@ function setpaths()
     else
         export TARGET_GCC_VERSION_KERNEL="$targetgcckernelversion"
     fi
-    export TARGET_ARCH=$(get_build_var TARGET_ARCH)
-    export GRAPHITE_OPTS=$(get_build_var GRAPHITE_OPTS)
-    export STRICT_ALIASING=$(get_build_var STRICT_ALIASING)
-    export USE_O3_OPTIMIZATIONS=$(get_build_var USE_O3_OPTIMIZATIONS)
-    export KRAIT_TUNINGS=$(get_build_var KRAIT_TUNINGS)
 
     export ANDROID_DEV_SCRIPTS=$T/development/scripts:$T/prebuilts/devtools/tools
     export ANDROID_BUILD_PATHS=$(get_build_var ANDROID_BUILD_PATHS):$ANDROID_TOOLCHAIN:$ANDROID_TOOLCHAIN_2ND_ARCH:$ANDROID_KERNEL_TOOLCHAIN_PATH$ANDROID_DEV_SCRIPTS:
