@@ -13,34 +13,6 @@
 # limitations under the License.
 #
 
-GRAPHITE_FLAGS := \
-	-fgraphite \
-	-floop-flatten \
-	-floop-parallelize-all \
-	-ftree-loop-linear \
-	-floop-interchange \
-	-floop-strip-mine \
-	-floop-block
-
-# Force disable some modules that are not compatible with graphite flags
-LOCAL_DISABLE_GRAPHITE := \
-	libunwind \
-	libFFTEm \
-	libicui18n \
-	libskia \
-	libvpx \
-	libmedia_jni \
-	libstagefright_mp3dec \
-	libart \
-	libavcodec \
-	libSR_Core \
-	fio
-
-ifeq (4.9-sm,$(TARGET_GCC_VERSION))
-LOCAL_DISABLE_GRAPHITE += \
-	libFraunhoferAAC
-endif
-
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_GRAPHITE),$(LOCAL_MODULE))))
 ifdef LOCAL_CONLYFLAGS
 LOCAL_CONLYFLAGS += $(GRAPHITE_FLAGS)
@@ -59,11 +31,5 @@ LOCAL_LDFLAGS  := $(GRAPHITE_FLAGS)
 else
 LOCAL_LDFLAGS  += $(GRAPHITE_FLAGS)
 endif
-endif
-
-# Graphite causes a warning with frameworks/av: libstagefright_amrwbenc
-ifeq ($(LOCAL_MODULE),libstagefright_amrwbenc)
-LOCAL_CONLYFLAGS += -Wno-error=maybe-uninitialized
-LOCAL_CPPFLAGS += -Wno-error=maybe-uninitialized
 endif
 #####
