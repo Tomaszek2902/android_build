@@ -43,3 +43,8 @@ ifneq (1,$(words $(filter $(LOCAL_DISABLE_O3),$(LOCAL_MODULE))))
     endif
   endif
 endif
+
+ifeq (1,$(words $(filter $(LOCAL_DISABLE_MAYBE_UNINITIALIZED),$(LOCAL_MODULE))))
+	LOCAL_CONLYFLAGS += -Wno-maybe-uninitialized
+	LOCAL_CPPFLAGS += -Wno-maybe-uninitialized
+endif
